@@ -120,21 +120,25 @@ def parse_gold(path: Path) -> list[dict]:
     return entries
 
 
+def _norm(s: str) -> str:
+    """表記ゆれ対策: 空白を無視して比較（例: 「CUDA バックエンド」vs「CUDAバックエンド」）。"""
+    return re.sub(r"\s+", "", s)
+
+
 def evaluate(cfg: dict, results: list[dict]) -> None:
     root: Path = cfg["_root"]
     gold = parse_gold(root / "eval" / "gold_pairs.yaml")
-    top_by_zettel: dict[str, list[str]] = {}
+    top_by_zettel: dict[str, set[str]] = {}
     for r in results:
-        top_by_zettel.setdefault(r["zettel_title"], []).append(r["lit_title"])
+        top_by_zettel.setdefault(_norm(r["zettel_title"]), set()).add(_norm(r["lit_title"]))
 
-    known_titles = {r["zettel_title"] for r in results} | set(top_by_zettel)
     hits, misses, skipped = [], [], []
     for g in gold:
-        cands = top_by_zettel.get(g["zettel"])
+        cands = top_by_zettel.get(_norm(g["zettel"]))
         if cands is None:
             skipped.append(g["zettel"])  # 索引に無い（改名等）or 候補ゼロ
             continue
-        if any(t in cands for t in g["targets"]):
+        if any(_norm(t) in cands for t in g["targets"]):
             hits.append(g["zettel"])
         else:
             misses.append(g)

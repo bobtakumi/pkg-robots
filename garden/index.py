@@ -298,12 +298,19 @@ def run(cfg: dict, do_embed: bool) -> None:
         ).rowcount
         embedded += max(cached, 0)
     if do_embed:
-        cur = con.execute("SELECT id, text FROM chunks WHERE embedding IS NULL ORDER BY id")
+        cur = con.execute(
+            """SELECT c.id, c.text, n.layer FROM chunks c JOIN notes n ON n.path = c.note_path
+               WHERE c.embedding IS NULL ORDER BY c.id""")
         rows = cur.fetchall()
+        # 非対称埋め込みモデル用 prefix（ruri 等）。API 送信時のみ付与し、格納テキストと
+        # text_hash は raw のまま（∴ prefix を変えたら同一モデルでも要・全再埋め込み）
+        qp = cfg["embed"].get("query_prefix", "")
+        pp = cfg["embed"].get("passage_prefix", "")
         batch = 32
         for i in range(0, len(rows), batch):
-            ids = [r[0] for r in rows[i:i + batch]]
-            vecs = try_embed(cfg, [r[1] for r in rows[i:i + batch]])
+            part = rows[i:i + batch]
+            ids = [r[0] for r in part]
+            vecs = try_embed(cfg, [(qp if r[2] == "zettel" else pp) + r[1] for r in part])
             if vecs is None:
                 print(f"[warn] 埋め込みエンドポイント {cfg['embed']['endpoint']} に接続できず。"
                       f"埋め込みパスをスキップ（{embedded}/{len(rows)} 済）", file=sys.stderr)
