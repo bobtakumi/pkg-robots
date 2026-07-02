@@ -1,0 +1,25 @@
+# pkg_robots 設定（実装プラン §1.1）
+[vault]
+path = "/Users/bobtk/pkg_vault"
+# インデックス対象から除外するパス（前方一致 or パス断片）
+exclude_prefixes = ["_depot/", "9_Templates/", "plan/", "_Reports/", ".obsidian/", ".trash/"]
+exclude_fragments = ["/Assets/"]
+
+[index]
+db_path = "data/garden.db"
+stats_path = "data/stats.json"
+chunk_max_chars = 6000
+
+[embed]
+# Ollama /api/embed（未起動なら埋め込みパスは自動スキップ）
+endpoint = "http://localhost:11434"
+model = "bge-m3"
+
+[judge]
+# OpenAI 互換。プロトタイプ=ローカル Ollama、本配線=DGX nemotron（M6 で URL 差し替え）
+endpoint = "http://localhost:11434/v1"
+model = ""
+
+[candidates]
+top_k = 10
+min_similarity = 0.45
