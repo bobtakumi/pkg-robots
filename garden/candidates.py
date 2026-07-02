@@ -16,13 +16,13 @@ import numpy as np
 
 def load_vectors(con: sqlite3.Connection):
     rows = con.execute(
-        """SELECT c.note_path, n.title, n.layer, c.heading, c.text, c.embedding
+        """SELECT c.note_path, n.title, n.layer, c.heading, c.text, c.embedding, c.seq
            FROM chunks c JOIN notes n ON n.path = c.note_path
            WHERE c.embedding IS NOT NULL"""
     ).fetchall()
     zettel, lit = [], []
-    for path, title, layer, heading, text, emb in rows:
-        rec = (path, title, heading, text, np.array(json.loads(emb), dtype=np.float32))
+    for path, title, layer, heading, text, emb, seq in rows:
+        rec = (path, title, heading, text, np.array(json.loads(emb), dtype=np.float32), seq)
         if layer == "zettel":
             zettel.append(rec)
         elif layer in ("literature_section", "literature_index") and "/Archive/" not in path:
@@ -73,7 +73,7 @@ def generate(cfg: dict) -> list[dict]:
     top_k = cfg["candidates"]["top_k"]
     min_sim = cfg["candidates"]["min_similarity"]
     results = []
-    for zi, (z_path, z_title, _h, _t, _v) in enumerate(zettel):
+    for zi, (z_path, z_title, _h, _t, _v, _seq) in enumerate(zettel):
         # ノートレベル類似度 = チャンク類似度の max
         best: dict[str, tuple[float, int]] = {}
         for li, s in enumerate(sim[zi]):
@@ -84,11 +84,12 @@ def generate(cfg: dict) -> list[dict]:
         for lit_path, (score, li) in ranked:
             if score < min_sim or (z_path, lit_path) in skip:
                 continue
-            _p, l_title, heading, text, _v2 = lit[li]
+            _p, l_title, heading, text, _v2, seq = lit[li]
             results.append({
                 "zettel_path": z_path, "zettel_title": z_title,
                 "lit_path": lit_path, "lit_title": l_title,
-                "score": round(score, 4), "best_chunk_heading": heading,
+                "score": round(score, 4), "best_chunk_seq": seq,
+                "best_chunk_heading": heading,
                 "best_chunk_excerpt": re.sub(r"\s+", " ", text)[:200],
             })
     results.sort(key=lambda r: -r["score"])

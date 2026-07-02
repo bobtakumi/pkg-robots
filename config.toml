@@ -13,8 +13,10 @@ stats_path = "data/stats.json"
 chunk_max_chars = 2000
 
 [embed]
-# Ollama /api/embed（未起動なら埋め込みパスは自動スキップ）
-endpoint = "http://localhost:11434"
+# 【U 2026-07-03】モデル類は Neo では動かさない。DGX Spark でホストする。
+# URL は DGX 配線時にユーザーが設定（現 data/garden.db はローカルプロトタイプで構築済み）。
+# エンドポイント不達なら埋め込みパスは自動スキップ
+endpoint = "http://REPLACE-WITH-DGX-SPARK:11434"
 # O2 決着（2026-07-03）: bge-m3-8k 採用。
 #   bge-m3-8k(2000字):  recall@10=48.9% / ruri-large(600字, 512tok制約): recall@10=25.5%
 # 非対称モデル用 prefix（ruri 等）。bge-m3 は不要なので空
@@ -23,9 +25,9 @@ query_prefix = ""
 passage_prefix = ""
 
 [judge]
-# OpenAI 互換。プロトタイプ=ローカル Ollama、本配線=DGX でホストする LLM-jp-4（M6 で URL 差し替え）
-endpoint = "http://localhost:11434/v1"
-model = ""
+# OpenAI 互換。DGX Spark でホストする LLM-jp-4（較正は Claude が `judge --validate` で代行）
+endpoint = "http://REPLACE-WITH-DGX-SPARK:8000/v1"
+model = ""  # LLM-jp-4 のモデル名（O10 で決定）
 
 [candidates]
 # 実測（gold=6/26 レポート確度高47件）: recall@10=51.1% / recall@30=63.8%。

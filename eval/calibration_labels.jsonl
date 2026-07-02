@@ -1,0 +1,35 @@
+{"id": "cal-00", "verdict": "link", "relation": "根拠", "evidence_zettel": "モデルがうまく動くためのモデル以外の全ての要素をハーネスと呼ぶ", "evidence_lit": "ハーネス（harness、本来は馬具）とは「モデルという動力を現実のタスクに伝達するための周辺機構の総体」", "reason": "zettel のハーネス定義の技術的裏付けとなる章。定義の一次的な詳細化。", "confidence": 5}
+{"id": "cal-01", "verdict": "link", "relation": "根拠", "evidence_zettel": "エンジニアはハーネスを学ぶべき", "evidence_lit": "モデルという動力を現実のタスクに伝達するための周辺機構の総体", "reason": "「ハーネスを学ぶべき」の学習対象そのものを定義する入門章。", "confidence": 4}
+{"id": "cal-02", "verdict": "link", "relation": "根拠", "evidence_zettel": "LangChainブログでの定義", "evidence_lit": "LangChain の Sydney Runkle によるブログ記事", "reason": "zettel が言及する「LangChainブログでの定義」の一次出典そのもの。", "confidence": 5}
+{"id": "cal-03", "verdict": "link", "relation": "発展", "evidence_zettel": "利用者としてLLMベンチマークを理解", "evidence_lit": "評価のための資源や発展的手法を説明できること", "reason": "ベンチマーク理解という zettel の意図を直接扱う講義回。", "confidence": 4}
+{"id": "cal-04", "verdict": "link", "relation": "発展", "evidence_zettel": "AIエンジニアとして必要なLLMの知識を見直す必要がある", "evidence_lit": "LLM がどのように「考える」かを理解する必要がある", "reason": "LLM 知識の見直しという意図に対する基礎理解の章。", "confidence": 4}
+{"id": "cal-05", "verdict": "link", "relation": "発展", "evidence_zettel": "AIエンジニアとして必要なLLMの知識を見直す必要がある", "evidence_lit": "自分のドメインに特化したファインチューニング済みモデルを「所有する」状態へ", "reason": "LLM 知識の中でもファインチューニング領域を深める資源。", "confidence": 3}
+{"id": "cal-06", "verdict": "link", "relation": "根拠", "evidence_zettel": "Zettelkastenをデジタルを前提により柔軟にした知識の運用方法", "evidence_lit": "デジタルノートを庭・農のメタファーで語る伝統は少なくとも1990年代初頭からあり", "reason": "「知識の庭」概念の設計論を展開する一次出典の章。", "confidence": 5}
+{"id": "cal-07", "verdict": "link", "relation": "発展", "evidence_zettel": "モデルがうまく動くためのモデル以外の全ての要素をハーネスと呼ぶ", "evidence_lit": "エージェントが本番作業（production work）を駆動し、人間が方向づけ・検証・判断（direction, verification, judgment）を駆動する", "reason": "エージェント定義が AgDD の人間/エージェント役割分担論へ発展する接続。", "confidence": 3}
+{"id": "cal-08", "verdict": "link", "relation": "具体例", "evidence_zettel": "LLMの学習レシピを分類し理解することが重要", "evidence_lit": "典型的な訓練フローにおいて Fine-Tuning が Pre-Training や RLHF・DPO に対してどう位置づけられるか説明できること", "reason": "学習レシピ分類の意図に対し、訓練フロー内の位置づけを与える具体的講義。", "confidence": 5}
+{"id": "cal-09", "verdict": "link", "relation": "根拠", "evidence_zettel": "メンテナンスが極めて重要", "evidence_lit": "庭も同じで絶えず手を入れねばならない", "reason": "週末の草むしり習慣の直接の出典章（baobab の寓話）。", "confidence": 5}
+{"id": "cal-10", "verdict": "link", "relation": "根拠", "evidence_zettel": "認知負荷が大きくなりすぎたらつくる", "evidence_lit": "本章は**トップダウンの整理**を扱う", "reason": "MOC=トップダウン整理を必要時に導入する考えの出典章。", "confidence": 4}
+{"id": "cal-11", "verdict": "link", "relation": "発展", "evidence_zettel": "LLMの地政学は意識する必要がある", "evidence_lit": "日本の LLM を取り巻く環境", "reason": "日本発モデルの地政学的把握という意図を直接扱う講義回。", "confidence": 4}
+{"id": "cal-12", "verdict": "link", "relation": "具体例", "evidence_zettel": "グラフとクラスタリングの手法が適用できる", "evidence_lit": "エンティティグラフをクラスタに分割し各々を LLM 要約", "reason": "グラフ+クラスタリング適用の具体的な実装パターン（enriched knowledge graph）。", "confidence": 5}
+{"id": "cal-13", "verdict": "link", "relation": "根拠", "evidence_zettel": "PKG: パーソナルナレッジガーデン", "evidence_lit": "自分が考えるための文脈（a context for you to think in）", "reason": "「知識の庭」メタファーを言語化した一次資料。", "confidence": 5}
+{"id": "cal-14", "verdict": "link", "relation": "具体例", "evidence_zettel": "LLMの学習レシピを分類し理解することが重要", "evidence_lit": "Step1 Pre-Training・Step2 Supervised Fine-Tuning（Instruction Tuning）・Step3 Reinforcement Learning", "reason": "学習レシピの3段階分類そのものを与える講義。", "confidence": 5}
+{"id": "cal-15", "verdict": "link", "relation": "根拠", "evidence_zettel": "何のために改善ループを回すのかを定めないといけない", "evidence_lit": "ボトルネックは「コードを打つこと」ではなく「作業を方向づけること」=成果を名指し・成功条件を定め", "reason": "ゴール設定が肝要という主張を「方向づけがボトルネック」論が支持。", "confidence": 5}
+{"id": "cal-16", "verdict": "link", "relation": "根拠", "evidence_zettel": "ただラピッドプロトタイピングにより開発の有効性があがる", "evidence_lit": "エージェントが**有用な変更のコスト**を下げるときだけで、タイプのコストを下げるときではない", "reason": "「速く・安くではなく有効性」という zettel の主張と同一の中心命題。", "confidence": 5}
+{"id": "cal-17", "verdict": "link", "relation": "根拠", "evidence_zettel": "定期的に草むしりを行っていことでアーキテクチャが生じていく", "evidence_lit": "庭も同じで絶えず手を入れねばならない", "reason": "草むしりから構造が育つという主張の出典章。", "confidence": 5}
+{"id": "cal-18", "verdict": "skip", "reason": "提示されたチャンクはアプリ設計ループの話で、モデル選定の観点が含まれない。チャンク選択の範囲では判定不能。"}
+{"id": "cal-19", "verdict": "link", "relation": "根拠", "evidence_zettel": "タイトルにアイデアの内容を端的に記載することで、メモ同士のリンクが自然に生まれる", "evidence_lit": "「未来の自分」が関連アイデアを見つけやすくする", "reason": "タイトル=API（見つけやすさのインターフェース）を長期保存・写像論が支持。", "confidence": 4}
+{"id": "cal-20", "verdict": "link", "relation": "反例", "evidence_zettel": "[[Zeigarnik効果を戦略的に避ける]]ことが必要", "evidence_lit": "**ツァイガルニク効果**（未完了のタスクが記憶に残る現象）により、ジャーナルを持たないときでも覚えやすくなる", "reason": "zettel は Zeigarnik 効果の回避を狙うが、BuJo は同効果を記憶の助けとして活用する——対立視点の接続。", "confidence": 3}
+{"id": "cal-21", "verdict": "skip", "reason": "評価の章は zettel の広い意図と重なるが、チャンクからは知的関係が特定できない。トピック一致どまり。"}
+{"id": "cal-22", "verdict": "skip", "reason": "能力開発によるコントロール獲得とタスクのリフレーミングは別の論点。"}
+{"id": "cal-23", "verdict": "skip", "reason": "ワークフロー章でありベンチマーク理解とは接点がない。"}
+{"id": "cal-24", "verdict": "skip", "reason": "文献メモの育て方とデータレプリケーションは無関係。"}
+{"id": "cal-25", "verdict": "skip", "reason": "プロジェクトサイクル能力と公正のエンジニアリングは無関係。"}
+{"id": "cal-26", "verdict": "skip", "reason": "ラボの目的とスタイルガイドは無関係。"}
+{"id": "cal-27", "verdict": "skip", "reason": "平日/週末のディスパッチと整頓の絡まり解消は無関係。"}
+{"id": "cal-28", "verdict": "skip", "reason": "成り行き任せの戦略とアーキテクチャ定義の章は、トレードオフという抽象語以上の接点がない。"}
+{"id": "cal-29", "verdict": "skip", "reason": "好奇心ドリブンの目標設定と継続的デリバリーは無関係。"}
+{"id": "cal-30", "verdict": "skip", "reason": "「ドライバ」の表層語彙一致（動機づけ vs GPUドライバ/性能チューニング）。典型的な誤接続。"}
+{"id": "cal-31", "verdict": "skip", "reason": "「アイディアとインスピレーション」はタイトルのみの一致で、中身は並行処理プリミティブ。"}
+{"id": "cal-32", "verdict": "skip", "reason": "GPU 適用範囲の拡大と LLM アプリ設計は無関係。"}
+{"id": "cal-33", "verdict": "skip", "reason": "意思決定のコントロール奪還と監視チェーンの冗長化は「コントロール」の語感のみの一致。"}
+{"id": "cal-34", "verdict": "skip", "reason": "週末の仕事持ち出しと分散システムの部分的失敗は無関係。"}
