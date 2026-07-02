@@ -8,12 +8,14 @@ exclude_fragments = ["/Assets/"]
 [index]
 db_path = "data/garden.db"
 stats_path = "data/stats.json"
-chunk_max_chars = 6000
+# 日本語+markdown はトークン膨張が激しく、実測で3450字が bge-m3 の 8192tok を超過した。
+# 節ノート中央値 2.3k字 → 2000字なら検索粒度としても妥当
+chunk_max_chars = 2000
 
 [embed]
 # Ollama /api/embed（未起動なら埋め込みパスは自動スキップ）
 endpoint = "http://localhost:11434"
-model = "bge-m3"
+model = "bge-m3-8k"  # Modelfile.bge-m3-8k で num_ctx 8192 を焼き込んだ派生
 
 [judge]
 # OpenAI 互換。プロトタイプ=ローカル Ollama、本配線=DGX でホストする LLM-jp-4（M6 で URL 差し替え）

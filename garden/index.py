@@ -196,17 +196,42 @@ def embed_text_for(note: dict, title_by_path: dict[str, str], links: list[tuple]
     return None
 
 
-def try_embed(cfg: dict, texts: list[str]) -> list[list[float]] | None:
+def _embed_call(cfg: dict, texts: list[str]) -> list[list[float]]:
     req = urllib.request.Request(
         cfg["embed"]["endpoint"].rstrip("/") + "/api/embed",
-        data=json.dumps({"model": cfg["embed"]["model"], "input": texts}).encode(),
+        data=json.dumps({"model": cfg["embed"]["model"], "input": texts, "truncate": True}).encode(),
         headers={"Content-Type": "application/json"},
     )
+    with urllib.request.urlopen(req, timeout=300) as r:
+        return json.loads(r.read())["embeddings"]
+
+
+def try_embed(cfg: dict, texts: list[str]) -> list[list[float]] | None:
+    """バッチ埋め込み。トークン超過(400)は1件ずつ・段階切り詰めでフォールバック。
+
+    Ollama 0.31 は bge-m3 で truncate/num_ctx を無視するため（実測）、
+    超過チャンクはクライアント側で 20% ずつ短縮して再試行する。
+    接続不可のみ None（=埋め込みパス全体のスキップ）。
+    """
     try:
-        with urllib.request.urlopen(req, timeout=120) as r:
-            return json.loads(r.read())["embeddings"]
+        return _embed_call(cfg, texts)
+    except urllib.error.HTTPError:
+        pass  # バッチ内に超過チャンク → 1件ずつ
     except (urllib.error.URLError, OSError):
         return None
+    out = []
+    for t in texts:
+        while True:
+            try:
+                out.append(_embed_call(cfg, [t])[0])
+                break
+            except urllib.error.HTTPError:
+                if len(t) < 200:
+                    raise
+                t = t[: int(len(t) * 0.8)]
+            except (urllib.error.URLError, OSError):
+                return None
+    return out
 
 
 def run(cfg: dict, do_embed: bool) -> None:
@@ -224,6 +249,21 @@ def run(cfg: dict, do_embed: bool) -> None:
             name = m.group(1).strip().split("/")[-1]
             resolved = title_map.get(name)
             links.append((n["path"], name, resolved, 0 if resolved else 1))
+
+    # 既存 db から埋め込みを text_hash + モデル一致で引き継ぐ（再実行の高速化）
+    embed_cache: dict[str, bytes] = {}
+    if db_path.exists():
+        old = sqlite3.connect(db_path)
+        try:
+            embed_cache = {
+                h: e for h, e in old.execute(
+                    "SELECT text_hash, embedding FROM chunks "
+                    "WHERE embedding IS NOT NULL AND embed_model = ?",
+                    (cfg["embed"]["model"],))
+            }
+        except sqlite3.OperationalError:
+            pass  # スキーマ旧版なら捨てる
+        old.close()
 
     db_path.unlink(missing_ok=True)
     con = sqlite3.connect(db_path)
@@ -251,8 +291,14 @@ def run(cfg: dict, do_embed: bool) -> None:
     )
 
     embedded = 0
+    if embed_cache:
+        cached = con.executemany(
+            "UPDATE chunks SET embedding = ?, embed_model = ? WHERE text_hash = ?",
+            [(e, cfg["embed"]["model"], h) for h, e in embed_cache.items()],
+        ).rowcount
+        embedded += max(cached, 0)
     if do_embed:
-        cur = con.execute("SELECT id, text FROM chunks ORDER BY id")
+        cur = con.execute("SELECT id, text FROM chunks WHERE embedding IS NULL ORDER BY id")
         rows = cur.fetchall()
         batch = 32
         for i in range(0, len(rows), batch):

@@ -1,0 +1,248 @@
+# 較正用正解データ。生成元: _Reports/2026-06-26 文献層リンク候補（クロスレイヤー接続）
+# 再生成: python3 eval/build_gold.py（手編集しない）
+positives:
+  - zettel: "PKGは育て続ける個人の知識の庭である"
+    targets:
+      - "4. ナレッジガーデンを設計する（Plan for a Knowledge Garden）"
+    source: "Books/DulyNoted"
+    reason: "「知識の庭」比喩そのものの一次出典。PKG設計思想の源"
+  - zettel: "PKGのアーキテクチャは草むしりから生じる"
+    targets:
+      - "9. 庭を手入れする（Tend the Garden）"
+    source: "Books/DulyNoted"
+    reason: "草むしり＝保守からボトムアップに構造が育つ章の主張と一致"
+  - zettel: "PKGでは週末の草むしりがVital"
+    targets:
+      - "9. 庭を手入れする（Tend the Garden）"
+    source: "Books/DulyNoted"
+    reason: "庭の定期保守（weeding/inbox整理/習慣化）の章"
+  - zettel: "メモのタイトルはAPIである"
+    targets:
+      - "6. すべてを正しい場所に置く（Put Everything in Its Right Place）"
+    source: "Books/DulyNoted"
+    reason: "一貫した命名で未来の自分が見つけられる＝タイトルがインターフェース"
+  - zettel: "リンクからカテゴリが生成される"
+    targets:
+      - "3. ノートをつなぐ（Connect Your Notes）"
+    source: "Books/DulyNoted"
+    reason: "リンクが密になりクラスタ＝カテゴリが創発する核心"
+  - zettel: "MOCでメモを複数のContextに置く"
+    targets:
+      - "6. すべてを正しい場所に置く（Put Everything in Its Right Place）"
+    source: "Books/DulyNoted"
+    reason: "MOC/コンテナでノートを複数文脈に配置する整理論"
+  - zettel: "AIバディのPoCをPKGで実施"
+    targets:
+      - "4. ガーデンの中のロボット — AIの9つの役割"
+    source: "Papers&Articles/RobotsInTheGarden"
+    reason: "本文に「Arangoも推奨」と明記。AIをPKGの協働者にする主旨"
+  - zettel: "PKGは育て続ける個人の知識の庭である"
+    targets:
+      - "2. ナレッジガーデンというメタファー"
+    source: "Papers&Articles/RobotsInTheGarden"
+    reason: "庭メタファーを言語化した一次資料"
+  - zettel: "BuJoで意思決定を自分の手に取り戻す"
+    targets:
+      - "3.9 コントロール"
+    source: "Books/BuJo"
+    reason: "ストア哲学「コントロールできる/できないの区別」と直結"
+  - zettel: "自分の内部のコントロールを自分の手に取り戻す"
+    targets:
+      - "3.9 コントロール"
+    source: "Books/BuJo"
+    reason: "反応でなく応答する＝内的コントロールの奪還"
+  - zettel: "BuJoを使ってToDo管理する"
+    targets:
+      - "2.3 タスク"
+    source: "Books/BuJo"
+    reason: "タスク記法によるToDo管理の中核節"
+  - zettel: "ジャーナリングで頭の中をすっきりする"
+    targets:
+      - "1.5 心のデトックス"
+    source: "Books/BuJo"
+    reason: "思考の外部化で頭を整理＝メンタルインベントリー"
+  - zettel: "紙の戦略的摩擦をiPadで再現する"
+    targets:
+      - "1.7 手書き"
+    source: "Books/BuJo"
+    reason: "手書きの戦略的摩擦を主題化"
+  - zettel: "グラフとクラスタリングの手法が適用できる"
+    targets:
+      - "10. リッチ化されたナレッジグラフ"
+    source: "Books/GraphRAG"
+    reason: "グラフデータサイエンス（クラスタリング/コミュニティ検出）"
+  - zettel: "エージェント = モデル + ハーネス"
+    targets:
+      - "1. ハーネスエンジニアリング入門"
+    source: "HermesHarness"
+    reason: "ハーネス=LLM APIを実用エージェント化する周辺工学の実装解剖"
+  - zettel: "安全性ハーネスはエージェントが安全に自立駆動する環境を提供"
+    targets:
+      - "7. ツールランタイム（レジストリ・ディスパッチ・承認）"
+      - "8. 実行環境とサンドボックス"
+    source: "HermesHarness"
+    reason: "危険コマンド承認・サンドボックスが安全自立駆動の機構"
+  - zettel: "ハーネスエンジニアリングはキャリアの重要スキル"
+    targets:
+      - "1. ハーネスエンジニアリング入門"
+    source: "HermesHarness"
+    reason: "最新〜枯れた技術までの総合格闘技という主張を体系化"
+  - zettel: "AIバディのPoCでハーネスエンジニアリングを学ぶ"
+    targets:
+      - "11. 記憶と学習ループ（自己改善の機構）"
+    source: "HermesHarness"
+    reason: "高度なハーネスが要るメモリ周りを題材に"
+  - zettel: "エージェント = モデル + ハーネス"
+    targets:
+      - "1. 信頼できないプロセスの工学"
+    source: "GasTown"
+    reason: "中心命題「知能はモデル、信頼性はハーネスが決める」と一致"
+  - zettel: "ハーネス全体を安全かつ再現性高くデプロイ"
+    targets:
+      - "15. マージキュー（batch-then-bisect）"
+      - "16. スケジューラ"
+      - "17. 可観測性（OTEL）"
+    source: "GasTown"
+    reason: "20-30体を安全・再現性高く協調デプロイ"
+  - zettel: "安全性ハーネスはエージェントが安全に自立駆動する環境を提供"
+    targets:
+      - "14. 多層ウォッチドッグ"
+    source: "GasTown"
+    reason: "停滞/クラッシュを監視・回復し安全に自律"
+  - zettel: "エージェント = モデル + ハーネス"
+    targets:
+      - "00 The Art of Loop Engineering"
+    source: "LoopEngineering"
+    reason: "Zettel本文が明記する「LangChainブログでの定義」の出典そのもの"
+  - zettel: "有効性ハーネスはLLMの能力を拡張する"
+    targets:
+      - "00 The Art of Loop Engineering"
+    source: "LoopEngineering"
+    reason: "エージェントループ＋検証ループがモデル能力を引き出す"
+  - zettel: "AI駆動開発は数理最適化と類似する"
+    targets:
+      - "00 The Art of Loop Engineering"
+    source: "LoopEngineering"
+    reason: "ヒルクライミング＝traceでハーネスを改善する制約下最適化"
+  - zettel: "AI駆動開発では最初のゴール設定が肝要"
+    targets:
+      - "00 Designing loops with Fable 5"
+    source: "FableLoops"
+    reason: "/goal・Outcomes・rubricで何のためにループを回すかを定義"
+  - zettel: "AI駆動開発は数理最適化と類似する"
+    targets:
+      - "00 Designing loops with Fable 5"
+    source: "FableLoops"
+    reason: "評価指標上でhill-climbさせる制約下最適化"
+  - zettel: "利用者としてLLMベンチマークを理解"
+    targets:
+      - "00 Designing loops with Fable 5"
+    source: "FableLoops"
+    reason: "Parameter Golf・Continual Learning Bench で能力差を読む"
+  - zettel: "エージェント = モデル + ハーネス"
+    targets:
+      - "1. エージェント駆動開発の台頭"
+    source: "ClaudeCodeUR"
+    reason: "「Claude Code＝推論モデルを囲むハーネス、モデルはツマミ」と明示"
+  - zettel: "AI駆動開発は開発ステップの有効性を上げるもの"
+    targets:
+      - "1. エージェント駆動開発の台頭"
+    source: "ClaudeCodeUR"
+    reason: "AgDDは有用な変更のコストを下げる時だけ報われる"
+  - zettel: "AI駆動開発では最初のゴール設定が肝要"
+    targets:
+      - "1. エージェント駆動開発の台頭"
+    source: "ClaudeCodeUR"
+    reason: "成果を名指し・成功条件を定める(describe outcomes)"
+  - zettel: "AI駆動BPRをAIのプロが行う意義とは？"
+    targets:
+      - "1. エージェント駆動開発の台頭"
+    source: "ClaudeCodeUR"
+    reason: "判断なきdirection-modeは悪い、シニアの設計スキルが効く"
+  - zettel: "AIエンジニアとしてLLMに詳しくなる"
+    targets:
+      - "2. LLMを理解する"
+    source: "PromptEngLLM"
+    reason: "LLM＝テキスト補完エンジンという本質理解"
+  - zettel: "検討対象とする代表的なLLMを選定する"
+    targets:
+      - "4. LLMアプリケーションの設計"
+    source: "PromptEngLLM"
+    reason: "コンテキスト収集〜モデル選択のパスにモデル選定を含む"
+  - zettel: "AI駆動リサーチは汎用的に活用可能"
+    targets:
+      - "2. ARA プロトコル（4層アーキテクチャ）"
+    source: "ARA"
+    reason: "研究成果をエージェント実行可能パッケージ化"
+  - zettel: "大量の情報をReductionして意味のある示唆を得る"
+    targets:
+      - "1. 物語化の税と工学の税（Introduction）"
+    source: "ARA"
+    reason: "論文は分岐研究を線形物語へ圧縮(Storytelling Tax)"
+  - zettel: "GPUプログラミングの教科書を執筆する"
+    targets:
+      - "00 Programming Massively Parallel Processors"
+    source: "Books/PMPP"
+    reason: "執筆の模範となる定番GPU並列教科書そのもの"
+  - zettel: "cuTilePythonを教科書の柱とする"
+    targets:
+      - "2. プログラミングモデルとtriton.language（上巻）"
+    source: "Papers&Articles/Triton"
+    reason: "タイル単位でカーネルを書く抽象＝cuTileと同系統"
+  - zettel: "cuTilePythonを教科書の柱とする"
+    targets:
+      - "8. CUDAバックエンド対比と cuTile 置換マップ"
+    source: "Papers&Articles/DwarfStar4"
+    reason: "cuTileでの再実装視点を明示的に併記する章"
+  - zettel: "LLMのトレーニングレシピを分類する"
+    targets:
+      - "7. 適応のメカニズム"
+    source: "FineTuningAI"
+    reason: "LoRA/QLoRA/DoRA＝ファインチューニングのレシピそのもの"
+  - zettel: "AIエンジニアとしてLLMに詳しくなる"
+    targets:
+      - "00 Fine-Tuning AI"
+    source: "FineTuningAI"
+    reason: "単一GPUでのFT実務知識はAIエンジニアの必須知識"
+  - zettel: "LLMのトレーニングレシピを分類する"
+    targets:
+      - "00 松尾研LLM講座（LLM基礎編2025）"
+    source: "松尾研LLM講座"
+    reason: "事前学習→事後学習→評価のパイプライン全体"
+  - zettel: "LLMのトレーニングレシピを分類する"
+    targets:
+      - "第6回 ファインチューニング"
+    source: "松尾研LLM講座"
+    reason: "Instruction Tuning/PEFT＝事後学習レシピ"
+  - zettel: "LLMのトレーニングレシピを分類する"
+    targets:
+      - "第7回 強化学習（RLHF・DPO・RLVR）"
+    source: "松尾研LLM講座"
+    reason: "RLHF/DPO/RLVR＝アライメントのレシピ分類軸"
+  - zettel: "AIエンジニアとしてLLMに詳しくなる"
+    targets:
+      - "00 松尾研LLM講座（LLM基礎編2025）"
+    source: "松尾研LLM講座"
+    reason: "LLM全体像を網羅する講座で知識を体系化"
+  - zettel: "利用者としてLLMベンチマークを理解"
+    targets:
+      - "第8回 学習データと評価ベンチマークの整備"
+    source: "松尾研LLM講座"
+    reason: "LLM-as-a-Judge/Chatbot Arena/汚染対策"
+  - zettel: "地政学の観点で日本発モデルに詳しくなる"
+    targets:
+      - "第1回 LLM の概要（講座全体像と日本の LLM 環境）"
+    source: "松尾研LLM講座"
+    reason: "日本のLLM開発環境・LLM-jp を扱う"
+  - zettel: "セキュリティは好奇心とニーズの重なり領域"
+    targets:
+      - "1. 評価指標（CVSS・SSVC・EPSS・KEV）"
+    source: "脆弱性リスク評価"
+    reason: "Zettelが情報セキュリティを主題化、実務の直接の参照先"
+negatives:  # judge few-shot 用の誤接続予防例（6/26 レポート「重要な訂正」）
+  - zettel: "底が1以上であることを保証するのがDSの役割"
+    wrong_target_hint: "GPU系出典（PMPP・Triton 等）"
+    reason: "本文の DS はデータサイエンティスト（AI駆動BPR文脈）であり GPU-sensei ではない"
+  - zettel: "指数関数の底を必ず1以上にする"
+    wrong_target_hint: "GPU系出典（PMPP・Triton 等）"
+    reason: "同上。表層語彙の一致（DS/指数）による誤接続の典型例"
