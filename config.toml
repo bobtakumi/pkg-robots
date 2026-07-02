@@ -16,7 +16,7 @@ endpoint = "http://localhost:11434"
 model = "bge-m3"
 
 [judge]
-# OpenAI 互換。プロトタイプ=ローカル Ollama、本配線=DGX nemotron（M6 で URL 差し替え）
+# OpenAI 互換。プロトタイプ=ローカル Ollama、本配線=DGX でホストする LLM-jp-4（M6 で URL 差し替え）
 endpoint = "http://localhost:11434/v1"
 model = ""
 
