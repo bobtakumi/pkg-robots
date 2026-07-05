@@ -44,9 +44,15 @@ def run(cfg: dict, findings_path: Path | None, judge_note: str = "config の jud
     root: Path = cfg["_root"]
     src = findings_path or (root / "data" / "findings.json")
     findings = json.loads(src.read_text(encoding="utf-8"))
-    links = [f for f in findings if f.get("verdict") == "link"]
+    # confidence ゲート: M6 回帰（2026-07-04）で LLM-jp-4 が過剰リンク（非gold link 11/15）と判明。
+    # 誤リンクは conf4〜5、正リンクも 4〜5 だが、conf>=5 に絞ると偽 11→2 / 正 17→9。
+    # 週5件の提案では recall より precision を優先するため、既定で conf>=5 を採用。
+    min_conf = cfg.get("report", {}).get("min_confidence", 5)
+    all_links = [f for f in findings if f.get("verdict") == "link"]
+    links = [f for f in all_links if f.get("confidence", 0) >= min_conf]
     if not links:
-        sys.exit("link 判定が0件。judge を先に実行すること")
+        sys.exit(f"confidence>={min_conf} の link が0件"
+                 f"（link 総数 {len(all_links)}）。閾値を下げるか judge を見直すこと")
     links.sort(key=lambda f: (-f.get("confidence", 0), -f.get("score", 0)))
     picked = links[:MAX_PROPOSALS]
 

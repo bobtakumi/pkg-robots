@@ -31,6 +31,12 @@ passage_prefix = ""
 endpoint = "http://spark-062c.local:11434/v1"
 model = "llm-jp-4-32b-a3b-thinking-Q4_K_M.gguf"
 
+[report]
+# M6 回帰（2026-07-04）で LLM-jp-4 の過剰リンク傾向が判明（非gold link 11/15）。
+# 誤リンクは conf4〜5 に集中するため conf>=5 でゲート（偽 11→2 / 正 17→9）。
+# precision 優先（週5件の提案なので recall より誤提案を減らす方が価値が高い）。
+min_confidence = 5
+
 [candidates]
 # 実測（gold=6/26 レポート確度高47件）: recall@10=51.1% / recall@30=63.8%。
 # 候補段は recall 重視で 30 に設定し、絞り込みは judge（M3）が担う。
