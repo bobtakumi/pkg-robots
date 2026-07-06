@@ -22,9 +22,12 @@ PKG（`~/pkg_vault`）に対する Connector robot とその土台。**Vault へ
 埋め込みは Ollama + `bge-m3-8k`（`ollama create bge-m3-8k -f Modelfile.bge-m3-8k` で作成）。
 判定は DGX の LLM-jp-4（`config.toml` の `[judge]`）。設定は `config.toml`、出力は `data/`（git 管理外）。
 
-## 状態（2026-07-06）
+## 状態（2026-07-07）
 
-- **Phase 1（M0–M4）実装完了・M6 判定側の DGX 本配線と回帰確認まで済み**。残りは MBP への移設（O11）と週次運用（M5）。
+- **Phase 1（M0–M4）実装完了・M6 判定側の DGX 本配線と回帰確認まで済み**。
+- **O11 決着（2026-07-07）: MBP への移設完了**。MBP 上で venv・Ollama(bge-m3-8k)・`garden index`（notes 796・chunks 2589）を構築し、
+  `judge --regress` が Neo 実測基準と一致（gold一致 17/20・非gold link 11/15・JSON妥当 30/35）。残りは週次運用（M5）。
+- 次の一手の正本は `HANDOFF.md`（環境別欄の常設ボード・2026-07-07 導入。dev-hub 管理下）。
 - **O2 決着**: `bge-m3-8k` 採用（recall@10=51.1% / @30=63.8%）。ruri-large は 512tok 制約で 25.5% に劣後。
 - **O10 決着**: DGX は llama.cpp llama-server、モデル `llm-jp-4-32b-a3b-thinking-Q4_K_M.gguf`。
   thinking の推論は `reasoning_content` に分離され `content` は素の JSON。`json_object` 強制は 400 で不可→プロンプト強制＋リトライ。

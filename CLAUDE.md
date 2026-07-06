@@ -1,0 +1,40 @@
+# pkg_robots — プロジェクト指示（Claude Code が起動時に自動読込）
+
+@../dev-hub/CLAUDE.md
+
+このファイルは Claude Code が起動時に必ず読む。上の import で dev-hub の恒久ルール
+（日本語応答・git 同期層が正本・二重持ち禁止 等）を自動で取り込み、下の `@HANDOFF.md` で
+**現在の引き継ぎ（次の一手）** を repo から取り込む（ローカルのメモリ機構 `~/.claude/...` は
+別環境へ渡らないため、引き継ぎは repo 内ファイルに置く）。
+
+## 起動時にやること
+
+1. **まず `HANDOFF.md` の「いまの環境の欄」を確認する。** 内容があれば最初にユーザーへ要約提示し、
+   その作業から着手する（または不明点を仰ぐ）。
+2. **pull 済みかを 2 つの repo について確認する**: この repo（`git pull`＝HANDOFF の最新化）と
+   `~/dev-hub`（`git -C ~/dev-hub pull`＝hub ルール・skill の最新化）。未 pull なら先に取り込む。
+3. `~/dev-hub` が参照可能か意識する（この repo の `.claude/settings.json` の
+   `additionalDirectories: ["../dev-hub"]` で常時付与されるのが標準。読めない場合は
+   設定の欠落なので、テンプレ `templates/PROJECT_SETTINGS_TEMPLATE.json` からの導入をユーザーへ提案する）。
+
+## 引き継ぎの更新規律（セッションを終える側）
+
+- `HANDOFF.md` は**環境別欄の常設ボード＝次の一手の正本**。終わる前に各欄を実状態へ更新する
+  （「何を・どう確認するか」まで書く。済んだ項目は消す）。
+- **不変条件: 持ち運び端末（Neo 等）の欄を絶やさない。**
+- 引き継ぎは**コミットして渡す**（push まで）。受け手は別環境で pull → 起動 → 自動読込で続きに入れる。
+
+@HANDOFF.md
+
+## このリポジトリの要点
+
+- **Vault（`~/pkg_vault`）へは read + propose**。書き込みは `_Reports/suggest-YYYYMMDD.md` のみ。それ以外は読むだけ。
+- 全体像・経緯・落とし穴は `docs/00-START-HERE.md`。環境構築（venv・Ollama・索引・回帰）は
+  `docs/HANDOFF-MBP.md`＝**一回性のセットアップ文書**（次の一手の正本はこの repo の `HANDOFF.md`）。
+- **judge まわりの触ってはいけないもの**（根拠は `docs/HANDOFF-MBP.md` §4）:
+  - `[report] min_confidence`（confidence≥5 ゲート）を安易に下げない — LLM-jp-4 の過剰リンク対策。提案洪水は過去の頓挫要因。
+  - judge に `response_format: json_object` を送らない — DGX の llama.cpp は 400 になる。プロンプト強制＋パースリトライ実装（`judge_pair`）を触らない。
+  - `call_llm` に max_tokens を送らない — thinking モデルは推論で打ち切られ content が空になる。
+  - evidence 逐語検証（幻覚ガード）を緩めない — 妥当率を上げたいからと検証を弱めるのは over-fit。
+- `data/`（garden.db 等）は git 管理外のビルド成果物。各マシンで `.venv/bin/python -m garden index` で再生成する。
+- 較正セット（`eval/calibration_export.json`＋`calibration_labels.jsonl`）は凍結。モデル差し替え時の回帰テスト専用。
