@@ -22,9 +22,11 @@ PKG（`~/pkg_vault`）に対する Connector robot とその土台。**Vault へ
 埋め込みは Ollama + `bge-m3-8k`（`ollama create bge-m3-8k -f Modelfile.bge-m3-8k` で作成）。
 判定は DGX の LLM-jp-4（`config.toml` の `[judge]`）。設定は `config.toml`、出力は `data/`（git 管理外）。
 
-## 状態（2026-07-07）
+## 状態（2026-07-11）
 
 - **Phase 1（M0–M4）実装完了・M6 判定側の DGX 本配線と回帰確認まで済み**。
+- **PKG運用改善設計 確定（2026-07-11）**: M5 は「週次庭仕事フロー」として実装する — Zettel 起点の優先度選定（放置期間・Inbox/Seeding 優先）・一枚のレビューノート体裁（根拠引用＋貼るだけ wikilink＋採/否チェックボックス）・チェックボックス回収→`data/decisions.jsonl`・launchd 週次自動実行（MBP）。
+  設計正本は vault 側 `_Reports/2026-07-11 PKG運用改善設計（週次庭仕事フロー）.md`。あわせて vault の `zettel_linked` は全廃（O8 撤回・受け皿は decisions.jsonl）。
 - **O11 決着（2026-07-07）: MBP への移設完了**。MBP 上で venv・Ollama(bge-m3-8k)・`garden index`（notes 796・chunks 2589）を構築し、
   `judge --regress` が Neo 実測基準と一致（gold一致 17/20・非gold link 11/15・JSON妥当 30/35）。残りは週次運用（M5）。
 - 次の一手の正本は `HANDOFF.md`（環境別欄の常設ボード・2026-07-07 導入。dev-hub 管理下）。

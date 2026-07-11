@@ -10,6 +10,11 @@ commit & push する（不変条件）。環境構築の手順そのもの（ven
   ① 対象 Zettel の優先度選定（最終編集日が古い順・Inbox / Seeding 状態を優先。状態値の実体は vault frontmatter/フォルダを実装時に確認）、
   ② レポート体裁を「一枚のレビューノート」へ（根拠引用＋貼るだけ wikilink＋採/否チェックボックス、出力先 `_Reports/garden-weekly-YYYYMMDD.md`）。
   確認: `garden report` が新体裁のノートを生成する（実装はオフライン可・実 LLM 不要、判定済み findings で確認）。
+  実装メモ（2026-07-11 引き継ぎ）:
+  - 体裁変更は `garden/report.py`（vault へ書く唯一のパス）。チェックボックスは提案の安定 ID を HTML コメント等で行に埋め、後述の回収コマンドが機械的に読めるようにする。
+  - 優先度選定は report 段の並べ替えなら最小、`garden/candidates.py` 段の絞り込みなら judge コストも減る。zettel の最終編集日・層分類は `garden index` が `data/garden.db` に持つはず（スキーマは `garden/index.py` で確認）。
+  - **vault の `zettel_linked` は 2026-07-11 に全廃済み（O8 撤回）。実装で参照しないこと。** 採否の受け皿は `data/decisions.jsonl` のみ。
+  - confidence≥5 ゲート・judge まわりの禁止事項（CLAUDE.md「触ってはいけないもの」）は変更しない。
 - [ ] **M5 の未実装 2 点に着手**: `garden stats`（`data/decisions.jsonl` の採用率集計）と、提案への安定 ID 付与（decisions との突合用）。
   採否はレビューノートのチェックボックス状態を回収して `decisions.jsonl` へ記録する方式に決着（2026-07-11 設計判断）。回収コマンドもここで実装。
   仕様は vault 側実装プラン §M5（`~/pkg_vault/_Reports/2026-07-02 Robots実装プラン Phase1（インデクサ+Connector）.md`）。
