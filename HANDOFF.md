@@ -6,16 +6,23 @@ commit & push する（不変条件）。環境構築の手順そのもの（ven
 
 ## Neo（Mac・GPU なし・オフライン可）
 
+- [ ] **週次レポートの再設計実装**（設計正本: `~/pkg_vault/_Reports/2026-07-11 PKG運用改善設計（週次庭仕事フロー）.md`）:
+  ① 対象 Zettel の優先度選定（最終編集日が古い順・Inbox / Seeding 状態を優先。状態値の実体は vault frontmatter/フォルダを実装時に確認）、
+  ② レポート体裁を「一枚のレビューノート」へ（根拠引用＋貼るだけ wikilink＋採/否チェックボックス、出力先 `_Reports/garden-weekly-YYYYMMDD.md`）。
+  確認: `garden report` が新体裁のノートを生成する（実装はオフライン可・実 LLM 不要、判定済み findings で確認）。
 - [ ] **M5 の未実装 2 点に着手**: `garden stats`（`data/decisions.jsonl` の採用率集計）と、提案への安定 ID 付与（decisions との突合用）。
+  採否はレビューノートのチェックボックス状態を回収して `decisions.jsonl` へ記録する方式に決着（2026-07-11 設計判断）。回収コマンドもここで実装。
   仕様は vault 側実装プラン §M5（`~/pkg_vault/_Reports/2026-07-02 Robots実装プラン Phase1（インデクサ+Connector）.md`）。
   確認: `.venv/bin/python -m garden stats` が採用率を表示する（実装はオフライン可・実 LLM 不要）。
 
 ## MBP（M3 Max・埋め込みホスト・robot 本体）
 
-- [ ] **M5 週次サイクルの初回本番実行**（手順は `docs/HANDOFF-MBP.md` §3.6）:
+- [ ] **M5 週次サイクルの初回本番実行**（手順は `docs/HANDOFF-MBP.md` §3.6、レポート再設計の実装後は新体裁で）:
   `candidates` → `judge --limit 40` → `report`。
-  確認: `~/pkg_vault/_Reports/suggest-YYYYMMDD.md` が生成され、上位5件が confidence≥5 でゲートされていること。実行後 vault 側を commit/push。
+  確認: `~/pkg_vault/_Reports/` に週次ノートが生成され、上位5件が confidence≥5 でゲートされていること。実行後 vault 側を commit/push。
   ※ 環境構築（§3.1–3.5）は 2026-07-07 完了済み — index 再構築（notes 796・chunks 2589 全埋め込み）、judge 回帰が Neo 基準一致（gold 17/20・非gold link 11/15・JSON妥当 30/35）。
+- [ ] **週次自動実行のセットアップ**（初回本番実行の後）: launchd で毎週決まった曜日に `candidates → judge → report` を自動実行し、レビューノートが人手なしで生える状態にする（MBP 常時稼働前提・2026-07-11 設計判断）。
+  確認: 指定曜日に週次ノートが自動生成される。
 
 ## Spark（DGX・GPU 実行）
 
@@ -25,7 +32,8 @@ commit & push する（不変条件）。環境構築の手順そのもの（ven
 
 - [ ] **レビューバンドル判定待ち**: `docs/review-bundles/2026-07-07_mbp-onboarding/views/review.md`（RP 5 個・想定 5 分）。
   MBP 移設＋オンボーディングの構成判断の事後承認。✏️/❌ が出たら core を直して view 再派生。
-- [ ] 週次レポートの採否記録（`data/decisions.jsonl`）の運用方法: 記入は人間 or 人間指示下の代筆。初回レポート生成後にレビューの回し方を決める。
+- [ ] **（週次フロー2〜3週運用後）判定モデル実験**: 凍結較正セット35ペアで LLM-jp-4 / DS4（DeepSeek ローカル）/ Claude gold の三つ巴比較。結果を見て confidence≥5 ゲートの緩和可否を再検討（過剰提案は許容の回答あり 2026-07-11。ただし提案洪水は過去の頓挫要因のためフロー定着を先行）。
+  ※ 採否記録の運用方法は決着済み（2026-07-11）: レビューノートのチェックボックス状態を robots が回収して `decisions.jsonl` へ記録。設計正本は `~/pkg_vault/_Reports/2026-07-11 PKG運用改善設計（週次庭仕事フロー）.md`。
 
 ## 参照
 
