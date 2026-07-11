@@ -14,6 +14,7 @@ commit & push する（不変条件）。環境構築の手順そのもの（ven
   - 体裁変更は `garden/report.py`（vault へ書く唯一のパス）。チェックボックスは提案の安定 ID を HTML コメント等で行に埋め、後述の回収コマンドが機械的に読めるようにする。
   - 優先度選定は report 段の並べ替えなら最小、`garden/candidates.py` 段の絞り込みなら judge コストも減る。zettel の最終編集日・層分類は `garden index` が `data/garden.db` に持つはず（スキーマは `garden/index.py` で確認）。
   - **vault の `zettel_linked` は 2026-07-11 に全廃済み（O8 撤回）。実装で参照しないこと。** 採否の受け皿は `data/decisions.jsonl` のみ。
+  - `decisions.jsonl` は**読み側が実装済み**（`garden/candidates.py` が `human=="rejected"` のペアを候補から除外）。回収コマンドの書き出しスキーマは既存の読み側（`zettel_path` / `lit_path` / `human`）に合わせる。
   - confidence≥5 ゲート・judge まわりの禁止事項（CLAUDE.md「触ってはいけないもの」）は変更しない。
 - [ ] **M5 の未実装 2 点に着手**: `garden stats`（`data/decisions.jsonl` の採用率集計）と、提案への安定 ID 付与（decisions との突合用）。
   採否はレビューノートのチェックボックス状態を回収して `decisions.jsonl` へ記録する方式に決着（2026-07-11 設計判断）。回収コマンドもここで実装。
@@ -22,6 +23,12 @@ commit & push する（不変条件）。環境構築の手順そのもの（ven
 
 ## MBP（M3 Max・埋め込みホスト・robot 本体）
 
+- [ ] **稼働・疎通の事前チェック**（2026-07-11 棚卸しより。※同日時点で MBP は Tailscale 上オフライン＝要復帰）:
+  ① Tailscale で bobmbp が active ② vault 同期（Neo 側の未 push コミットが bare repo へ届き、MBP 作業コピーが pull 済み）
+  ③ DGX 到達 `curl -s --max-time 6 http://spark-062c.local:11434/v1/models` ④ Ollama 常駐＋`bge-m3-8k` 存在
+  ⑤ `python -m garden index` 再実行で期待値（notes ≈ 796・zettel 124・chunks 全埋め込み）に近いこと。
+  ズレたら `judge --regress` で基準（JSON妥当 29/35・gold 17/20・非gold link 11/15）との悪化を確認。
+  ※ Neo クローンの `data/` はプロト由来で本番 `findings.json` 未生成。本番サイクルは MBP 側で回す。
 - [ ] **M5 週次サイクルの初回本番実行**（手順は `docs/HANDOFF-MBP.md` §3.6、レポート再設計の実装後は新体裁で）:
   `candidates` → `judge --limit 40` → `report`。
   確認: `~/pkg_vault/_Reports/` に週次ノートが生成され、上位5件が confidence≥5 でゲートされていること。実行後 vault 側を commit/push。
